@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TaskFlowAPI.Models;
-//
+
 namespace TaskFlowAPI.Data
 {
     public class ApiContext : DbContext
@@ -12,7 +12,7 @@ namespace TaskFlowAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<TaskItem> Tasks { get; set; }
-        //
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Assurer que l'email est unique
