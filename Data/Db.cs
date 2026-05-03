@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TaskFlowAPI.Models;
+using Task = TaskFlowAPI.Models.Task;
 
 namespace TaskFlowAPI.Data
 {
@@ -11,7 +12,7 @@ namespace TaskFlowAPI.Data
         
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<TaskItem> Tasks { get; set; }
+        public DbSet<Task> Tasks { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,7 +22,7 @@ namespace TaskFlowAPI.Data
                 .IsUnique();
             
             // Convertir les enums en string
-            modelBuilder.Entity<TaskItem>()
+            modelBuilder.Entity<Task>()
                 .Property(t => t.Status)
                 .HasConversion<string>();
                 
