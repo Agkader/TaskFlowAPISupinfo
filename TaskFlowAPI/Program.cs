@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 using TaskFlowAPI.Data;
 
@@ -41,15 +42,22 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
-// Configuration de Swagger avec prise en charge du token JWT
+// Configuration de Swagger avec prise en charge du token JWT et des commentaires XML
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title   = "TaskFlow API",
-        Version = "v1"
+        Title       = "TaskFlow API",
+        Version     = "v1",
+        Description = "API REST de gestion de projets et de tâches. " +
+                      "Les routes /projects et /tasks nécessitent un token JWT obtenu via /api/users/login."
     });
+
+    // Activation des commentaires XML dans Swagger UI
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 
     // Schéma de sécurité Bearer pour Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
