@@ -1,3 +1,5 @@
+using TaskFlowAPI.Models;
+
 namespace TaskFlowAPI.Dto
 {
     // DTOs pour l'authentification
@@ -21,16 +23,18 @@ namespace TaskFlowAPI.Dto
     {
         public string  Name        { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public int     UserId      { get; set; }
     }
 
     // DTOs pour les tâches
-    // Le statut peut valoir "Todo", "InProgress" ou "Done"
+    // Status accepte : ÀFaire, EnCours, Terminé
 
     public class TaskDto
     {
-        public string  Title       { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public string? Status      { get; set; }
-        public int     ProjectId   { get; set; }
+        public string      Title     { get; set; } = string.Empty;
+        public TaskStatus? Status    { get; set; }
+        public DateTime?   DueDate   { get; set; }
+        public string?     Comments  { get; set; }
+        public int         ProjectId { get; set; }
     }
 }
